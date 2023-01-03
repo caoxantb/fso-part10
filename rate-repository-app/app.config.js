@@ -29,6 +29,7 @@ export default {
     favicon: "./assets/favicon.png",
   },
   extra: {
-    APOLLO_URI: process.env.APOLLO_URI
+    APOLLO_URI_1: process.env.APOLLO_URI_1,
+    APOLLO_URI_2: process.env.APOLLO_URI_2,
   },
 };
