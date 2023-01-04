@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const renderItem = ({ item }) => {
-  return <RepositoryItem item={item} />;
+  return <RepositoryItem item={item} id={item.id}/>;
 };
 
 const RepositoryList = () => {

@@ -1,7 +1,9 @@
-import { View, StyleSheet, Image, FlatList } from "react-native";
+import { View, StyleSheet, Image, FlatList, Pressable } from "react-native";
+import { Link, useNavigate } from "react-router-native";
+import GithubButtonLink from "./GithubButtonLink";
 import Text from "./Text";
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItemBase = ({ item }) => {
   const {
     fullName,
     description,
@@ -106,6 +108,21 @@ const RepositoryItem = ({ item }) => {
         </View>
       </View>
     </View>
+  );
+};
+
+const RepositoryItem = ({ item, id, url }) => {
+  return id ? (
+    <Pressable onPress={() => {}}>
+      <Link to={`/repo/${id}`}>
+        <RepositoryItemBase item={item} />
+      </Link>
+    </Pressable>
+  ) : (
+    <>
+      <RepositoryItemBase item={item} />
+      <GithubButtonLink url={url} />
+    </>
   );
 };
 
