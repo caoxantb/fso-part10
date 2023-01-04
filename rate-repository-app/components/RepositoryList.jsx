@@ -17,16 +17,20 @@ const renderItem = ({ item }) => {
 const RepositoryList = () => {
   const { repositories } = useRepositories();
 
+  return <RepositoryListContainter repositories={repositories}/>
+};
+
+export const RepositoryListContainter = ({ repositories }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
 
   return (
     <FlatList
+      testID="repositoryList"
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={renderItem}
-      // other props
     />
   );
 };

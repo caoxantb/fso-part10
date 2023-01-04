@@ -6,32 +6,19 @@ import * as yup from "yup";
 import useSignIn from "../hooks/useSignIn";
 import { useNavigate } from "react-router-native";
 
-const SignInForm = ({ onSubmit }) => {
+export const SignInForm = ({ onSubmit }) => {
   return (
     <View>
       <FormikTextInput name="username" placeholder="Username" />
       <FormikTextInput secureTextEntry name="password" placeholder="Password" />
       <Pressable onPress={onSubmit}>
-        <Text>Calculate</Text>
+        <Text>Sign In</Text>
       </Pressable>
     </View>
   );
 };
 
-const SignIn = () => {
-  const [signIn] = useSignIn()
-  const navigate = useNavigate()
-
-  const onSubmit = async (values) => {
-    const {username, password} = values
-    try {
-      const {data} = await signIn({ username, password });
-      navigate("/repositories");
-    } catch (e) {
-      console.log("yej", e);
-    }
-  };
-
+export const SignInContainer = ({ onSubmit }) => {
   const initialValues = {
     username: "",
     password: "",
@@ -59,5 +46,21 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+const SignIn = () => {
+  const navigate = useNavigate();
+  const { signIn } = useAuth();
 
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+    try {
+      const { data } = await signIn({ username, password });
+      navigate("/repositories");
+    } catch (e) {
+      console.log("yej", e);
+    }
+  };
+
+  return <SignInContainer onSubmit={onSubmit} />;
+};
+
+export default SignIn;
