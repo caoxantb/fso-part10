@@ -4,8 +4,17 @@ export const GET_REPOSITORIES = gql`
   query queryRepos(
     $orderBy: AllRepositoriesOrderBy
     $orderDirection: OrderDirection
+    $searchKeyword: String
+    $after: String
+    $first: Int
   ) {
-    repositories(orderBy: $orderBy, orderDirection: $orderDirection) {
+    repositories(
+      orderBy: $orderBy
+      orderDirection: $orderDirection
+      searchKeyword: $searchKeyword
+      after: $after
+      first: $first
+    ) {
       edges {
         node {
           description
@@ -18,6 +27,12 @@ export const GET_REPOSITORIES = gql`
           fullName
           stargazersCount
         }
+        cursor
+      }
+      pageInfo {
+        endCursor
+        startCursor
+        hasNextPage
       }
     }
   }
@@ -33,7 +48,7 @@ export const GET_ME = gql`
 `;
 
 export const GET_SINGLE_REPO = gql`
-  query querySingleRepo($repositoryId: ID!) {
+  query querySingleRepo($repositoryId: ID!, $after: String, $first: Int) {
     repository(id: $repositoryId) {
       description
       fullName
@@ -44,7 +59,7 @@ export const GET_SINGLE_REPO = gql`
       forksCount
       url
       language
-      reviews {
+      reviews(after: $after, first: $first) {
         edges {
           node {
             id
@@ -56,6 +71,12 @@ export const GET_SINGLE_REPO = gql`
               username
             }
           }
+          cursor
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          hasNextPage
         }
       }
     }

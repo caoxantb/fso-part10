@@ -3,6 +3,8 @@ import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
 import RepoPicker from "./RepoPicker";
 import { useState } from "react";
+import RepoSearch from "./Search";
+import { useDebounce } from "use-debounce";
 
 const styles = StyleSheet.create({
   separator: {
@@ -19,7 +21,9 @@ const renderItem = ({ item }) => {
 const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState("CREATED_AT");
   const [orderDirection, setOrderDirection] = useState("ASC");
-  const { repositories } = useRepositories(orderBy, orderDirection);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [debouncedKeyword] = useDebounce(searchKeyword, 500);
+  const { repositories, fetchMore } = useRepositories(8, orderBy, orderDirection, debouncedKeyword);
 
   return (
     <RepositoryListContainter
@@ -28,11 +32,23 @@ const RepositoryList = () => {
       setOrderBy={setOrderBy}
       orderDirection={orderDirection}
       setOrderDirection={setOrderDirection}
+      searchKeyword={searchKeyword}
+      setSearchKeyword={setSearchKeyword}
+      fetchMore={fetchMore}
     />
   );
 };
 
-export const RepositoryListContainter = ({ repositories, orderBy, setOrderBy, orderDirection, setOrderDirection }) => {
+export const RepositoryListContainter = ({
+  repositories,
+  orderBy,
+  setOrderBy,
+  orderDirection,
+  setOrderDirection,
+  searchKeyword,
+  setSearchKeyword,
+  fetchMore
+}) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -42,15 +58,23 @@ export const RepositoryListContainter = ({ repositories, orderBy, setOrderBy, or
       testID="repositoryList"
       data={repositoryNodes}
       ListHeaderComponent={
-        <RepoPicker
-          orderBy={orderBy}
-          setOrderBy={setOrderBy}
-          orderDirection={orderDirection}
-          setOrderDirection={setOrderDirection}
-        />
+        <>
+          <RepoPicker
+            orderBy={orderBy}
+            setOrderBy={setOrderBy}
+            orderDirection={orderDirection}
+            setOrderDirection={setOrderDirection}
+          />
+          <RepoSearch
+            searchKeyword={searchKeyword}
+            setSearchKeyword={setSearchKeyword}
+          />
+        </>
       }
       ItemSeparatorComponent={ItemSeparator}
       renderItem={renderItem}
+      onEndReached={() => fetchMore()}
+      onEndReachedThreshold={0.5}
     />
   );
 };
