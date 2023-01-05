@@ -1,6 +1,8 @@
 import { FlatList, View, StyleSheet } from "react-native";
 import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
+import RepoPicker from "./RepoPicker";
+import { useState } from "react";
 
 const styles = StyleSheet.create({
   separator: {
@@ -11,16 +13,26 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const renderItem = ({ item }) => {
-  return <RepositoryItem item={item} id={item.id}/>;
+  return <RepositoryItem item={item} id={item.id} />;
 };
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const [orderBy, setOrderBy] = useState("CREATED_AT");
+  const [orderDirection, setOrderDirection] = useState("ASC");
+  const { repositories } = useRepositories(orderBy, orderDirection);
 
-  return <RepositoryListContainter repositories={repositories}/>
+  return (
+    <RepositoryListContainter
+      repositories={repositories}
+      orderBy={orderBy}
+      setOrderBy={setOrderBy}
+      orderDirection={orderDirection}
+      setOrderDirection={setOrderDirection}
+    />
+  );
 };
 
-export const RepositoryListContainter = ({ repositories }) => {
+export const RepositoryListContainter = ({ repositories, orderBy, setOrderBy, orderDirection, setOrderDirection }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -29,6 +41,14 @@ export const RepositoryListContainter = ({ repositories }) => {
     <FlatList
       testID="repositoryList"
       data={repositoryNodes}
+      ListHeaderComponent={
+        <RepoPicker
+          orderBy={orderBy}
+          setOrderBy={setOrderBy}
+          orderDirection={orderDirection}
+          setOrderDirection={setOrderDirection}
+        />
+      }
       ItemSeparatorComponent={ItemSeparator}
       renderItem={renderItem}
     />
