@@ -56,15 +56,29 @@ const AppBar = () => {
         </Pressable>
 
         {!meUser ? (
-          <Pressable onPress={() => {}}>
-            <Link to="/signin">
-              <Text style={styles.text}>Sign In</Text>
-            </Link>
-          </Pressable>
+          <>
+            <Pressable onPress={() => {}}>
+              <Link to="/signin">
+                <Text style={styles.text}>Sign In</Text>
+              </Link>
+            </Pressable>
+            <Pressable onPress={() => {}}>
+              <Link to="/signup">
+                <Text style={styles.text}>Sign Up</Text>
+              </Link>
+            </Pressable>
+          </>
         ) : (
-          <Pressable onPress={handleLogout}>
-            <Text style={styles.text}>Sign Out</Text>
-          </Pressable>
+          <>
+            <Pressable onPress={() => {}}>
+              <Link to="/addReview">
+                <Text style={styles.text}>Add</Text>
+              </Link>
+            </Pressable>
+            <Pressable onPress={handleLogout}>
+              <Text style={styles.text}>Sign Out</Text>
+            </Pressable>
+          </>
         )}
       </ScrollView>
     </View>

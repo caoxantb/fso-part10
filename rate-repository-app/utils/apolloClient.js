@@ -4,7 +4,7 @@ import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
   // Replace the IP address part with your own IP address!
-  uri: Constants.manifest.extra.APOLLO_URI_1,
+  uri: Constants.manifest.extra.APOLLO_URI_2,
 });
 
 const createApolloClient = (authStorage) => {
