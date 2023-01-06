@@ -5,8 +5,8 @@ import { relayStylePagination } from "@apollo/client/utilities";
 
 const httpLink = createHttpLink({
   // Replace the IP address part with your own IP address!
-  // uri: Constants.manifest.extra.APOLLO_URI_4,
-  uri: "http://localhost:4000/graphql",
+  uri: Constants.manifest.extra.APOLLO_URI_1,
+  // uri: "http://localhost:4000/graphql",
 });
 
 const cache = new InMemoryCache({
