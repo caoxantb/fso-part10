@@ -1,13 +1,10 @@
 import * as Linking from "expo-linking";
 import { View, Pressable, Text } from "react-native";
+import Button from "./Button";
 
 const GithubButtonLink = ({ url }) => {
   return Linking.canOpenURL(url) ? (
-    <View>
-      <Pressable onPress={() => Linking.openURL(url)}>
-        <Text>Go to URL</Text>
-      </Pressable>
-    </View>
+    <Button onSubmit={() => Linking.openURL(url)} text="Go to URL"/>
   ) : (
     <></>
   );

@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.bgColors.tabPrimary,
     height: 80,
   },
+  tab: {
+    marginRight: 10
+  },
   text: {
     color: theme.colors.textTab,
     fontSize: theme.fontSizes.tab,
@@ -49,7 +52,7 @@ const AppBar = () => {
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
-        <Pressable onPress={() => {}}>
+        <Pressable style={styles.tab} onPress={() => {}}>
           <Link to="/repositories">
             <Text style={styles.text}>Repos</Text>
           </Link>
@@ -57,12 +60,12 @@ const AppBar = () => {
 
         {!meUser ? (
           <>
-            <Pressable onPress={() => {}}>
+            <Pressable style={styles.tab} onPress={() => {}}>
               <Link to="/signin">
                 <Text style={styles.text}>Sign In</Text>
               </Link>
             </Pressable>
-            <Pressable onPress={() => {}}>
+            <Pressable style={styles.tab} onPress={() => {}}>
               <Link to="/signup">
                 <Text style={styles.text}>Sign Up</Text>
               </Link>
@@ -70,12 +73,12 @@ const AppBar = () => {
           </>
         ) : (
           <>
-            <Pressable onPress={() => {}}>
+            <Pressable style={styles.tab} onPress={() => {}}>
               <Link to="/addReview">
-                <Text style={styles.text}>Add</Text>
+                <Text style={styles.text}>Add Review</Text>
               </Link>
             </Pressable>
-            <Pressable onPress={handleLogout}>
+            <Pressable style={styles.tab} onPress={handleLogout}>
               <Text style={styles.text}>Sign Out</Text>
             </Pressable>
           </>

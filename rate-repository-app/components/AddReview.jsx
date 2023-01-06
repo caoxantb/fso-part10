@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-native";
 import { useMutation } from "@apollo/client";
 import useAddReview from "../hooks/useAddReview";
+import Button from "./Button";
 
 export const AddReviewForm = ({ onSubmit }) => {
   return (
@@ -15,9 +16,8 @@ export const AddReviewForm = ({ onSubmit }) => {
       <FormikTextInput name="rating" placeholder="Rating (0 - 100)" />
       <FormikTextInput name="text" placeholder="Review" />
 
-      <Pressable onPress={onSubmit}>
-        <Text>Add</Text>
-      </Pressable>
+      <Button onSubmit={onSubmit} text="Add" />
+
     </View>
   );
 };

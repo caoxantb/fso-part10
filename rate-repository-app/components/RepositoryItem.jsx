@@ -1,5 +1,6 @@
 import { View, StyleSheet, Image, FlatList, Pressable } from "react-native";
 import { Link, useNavigate } from "react-router-native";
+import { transformRepoStats } from "../utils/transformRepoStats";
 import GithubButtonLink from "./GithubButtonLink";
 import Text from "./Text";
 
@@ -23,10 +24,12 @@ const RepositoryItemBase = ({ item }) => {
     infoContainer: {
       display: "flex",
       flexDirection: "row",
+      marginBottom: 20
     },
     image: {
       width: 50,
       height: 50,
+      marginRight: 5
     },
     languageText: {
       color: "white",
@@ -53,12 +56,12 @@ const RepositoryItemBase = ({ item }) => {
             uri: ownerAvatarUrl,
           }}
         />
-        <View style={{ alignItems: "flex-start", flex: 1 }}>
-          <Text fontWeight="bold">{fullName}</Text>
+        <View style={{ alignItems: "flex-start", flex: 1, marginLeft: 5}}>
+          <Text fontWeight="bold" style={{marginBottom: 5}}>{fullName}</Text>
           {/* <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
             <Text style={{ flex: 1 }}>{description}</Text>
           </View> */}
-          <Text>{description}</Text>
+          <Text style={{marginBottom: 5}}>{description}</Text>
           <View style={styles.languageDiv}>
             <Text style={styles.languageText}>{language}</Text>
           </View>
@@ -73,8 +76,8 @@ const RepositoryItemBase = ({ item }) => {
             justifyContent: "center",
           }}
         >
-          <Text>{forksCount}</Text>
-          <Text>Stars</Text>
+          <Text>{transformRepoStats(forksCount)}</Text>
+          <Text fontWeight="bold">Stars</Text>
         </View>
         <View
           style={{
@@ -83,8 +86,8 @@ const RepositoryItemBase = ({ item }) => {
             justifyContent: "center",
           }}
         >
-          <Text>{stargazersCount}</Text>
-          <Text>Forks</Text>
+          <Text>{transformRepoStats(stargazersCount)}</Text>
+          <Text fontWeight="bold">Forks</Text>
         </View>
         <View
           style={{
@@ -93,8 +96,8 @@ const RepositoryItemBase = ({ item }) => {
             justifyContent: "center",
           }}
         >
-          <Text>{reviewCount}</Text>
-          <Text>Reviews</Text>
+          <Text>{transformRepoStats(reviewCount)}</Text>
+          <Text fontWeight="bold">Reviews</Text>
         </View>
         <View
           style={{
@@ -104,7 +107,7 @@ const RepositoryItemBase = ({ item }) => {
           }}
         >
           <Text>{ratingAverage}</Text>
-          <Text>Rating</Text>
+          <Text fontWeight="bold">Rating</Text>
         </View>
       </View>
     </View>

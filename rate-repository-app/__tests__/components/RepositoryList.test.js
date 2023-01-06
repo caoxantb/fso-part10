@@ -65,4 +65,14 @@ describe("RepositoryList", () => {
       "JavaScript",
     ].forEach((str) => expect(getByText(str)).toBeDefined());
   });
+
+  it("display repository stats data", () => {
+    const { getByText } = render(
+      <RepositoryListContainter repositories={repositories} />
+    );
+
+    ["1.6k", "21.9k", "88", "3", "69", "1.8k", "72", "3"].forEach((str) =>
+      expect(getByText(str)).toBeDefined()
+    );
+  });
 });

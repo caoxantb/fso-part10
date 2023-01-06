@@ -6,6 +6,7 @@ import * as yup from "yup";
 import useSignUp from "../hooks/useSignUp";
 import { useNavigate } from "react-router-native";
 import useSignIn from "../hooks/useSignIn";
+import Button from "./Button";
 
 export const SignUpForm = ({ onSubmit }) => {
   return (
@@ -17,9 +18,7 @@ export const SignUpForm = ({ onSubmit }) => {
         name="recheckPassword"
         placeholder="Password Doublecheck"
       />
-      <Pressable onPress={onSubmit}>
-        <Text>Sign Up</Text>
-      </Pressable>
+      <Button onSubmit={onSubmit} text="Sign Up" />
     </View>
   );
 };
@@ -59,7 +58,7 @@ export const SignUpContainer = ({ onSubmit }) => {
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [signUp] = useSignUp()
+  const [signUp] = useSignUp();
   const [signIn] = useSignIn();
 
   const onSubmit = async (values) => {
